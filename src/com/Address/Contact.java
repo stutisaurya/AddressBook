@@ -1,7 +1,7 @@
 package com.Address;
 
 public class Contact {
-	//// Initialize all the parameters
+////Initialize all the parameters
 	private String firstName;
 	private String lastName;
 	private String city;

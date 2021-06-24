@@ -15,7 +15,7 @@ public class AddressBook {
 		System.out.println("Enter your lastName : ");
 		String lastName = sc.nextLine();
 		System.out.println("Enter your address : ");
-		String Address = sc.nextLine();
+		String address = sc.nextLine();
 		System.out.println("Enter your city : ");
 		String city = sc.nextLine();
 		System.out.println("Enter your state : ");
@@ -30,22 +30,32 @@ public class AddressBook {
 		list.add(obj);
 	}
 
+	public static void editContact() {
+		// Scanner sc = new Scanner(System.in);
+		System.out.println("Enter first name for confirmation : ");
+		String firstName = sc.nextLine();
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).getFirstName().equalsIgnoreCase(firstName)) {
+				list.remove(i);
+				addContact();
+				System.out.println("Successfully Edit data");
+			} else {
+				System.out.println("No data found in Address Book");
+			}
+		}
+	}
+
 	public static void main(String[] args) {
 
-		AddressBook AddressBook = new AddressBook();
+		AddressBook addressBook = new AddressBook();
 		// Displaying the welcome message
 		System.out.println("WELCOME TO ADDRESS BOOK PROBLEM");
 		// Adding new contact
 		System.out.println("Enter details of new contact");
 		addContact();
+		// Editing Contact
+		editContact();
 
-		// Creating contact and adding new contact details to the list
-		System.out.println("You want to add contact Y/N");
-		String chose = sc.nextLine();
-		if (chose.equalsIgnoreCase("y"))
-			addContact();
-		else
-			System.out.println(list); // printing list
+		System.out.println(list); // printing list
 	}
-
 }
