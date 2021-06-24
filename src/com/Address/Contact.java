@@ -1,38 +1,90 @@
 package com.Address;
 
-import java.util.Scanner;
-
 public class Contact {
-
-	private String first_name;
-	private String last_name;
-	private String address;
+	//// Initialize all the parameters
+	private String firstName;
+	private String lastName;
 	private String city;
 	private String state;
-	private int zip;
-	private String phone_number;
+	private String pin;
+	private String mobileNo;
 	private String email;
+	// call by Constructor
 
-	void addContacts() {
-		Contact object = new Contact();
-		Scanner scan = new Scanner(System.in);
-		System.out.println("Enter First Name:");
-		object.first_name = scan.next();
-		System.out.println("Enter Last Name:");
-		object.last_name = scan.next();
-		System.out.println("Enter Address:");
-		object.address = scan.next();
-		System.out.println("Enter City:");
-		object.city = scan.next();
-		System.out.println("Enter State:");
-		object.state = scan.next();
-		System.out.println("Enter zip:");
-		object.zip = scan.nextInt();
-		System.out.println("Enter Phone number:");
-		object.phone_number = scan.next();
-		System.out.println("Enter Email:");
-		object.email = scan.next();
-		scan.close();
+	public Contact(String firstName, String lastName, String city, String state, String pin, String mobileNo,
+			String email) {
+		// Using Super key
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.city = city;
+		this.state = state;
+		this.pin = pin;
+		this.mobileNo = mobileNo;
+		this.email = email;
+	}
+	// Using Getter and Setter Method
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getPin() {
+		return pin;
+	}
+
+	public void setPin(String pin) {
+		this.pin = pin;
+	}
+
+	public String getMobileNo() {
+		return mobileNo;
+	}
+
+	public void setMobileNo(String mobileNo) {
+		this.mobileNo = mobileNo;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	@Override
+	public String toString() {
+		return "Contact [firstName=" + firstName + ", lastName=" + lastName + ", city=" + city + ", state=" + state
+				+ ", pin=" + pin + ", mobileNo=" + mobileNo + ", email=" + email + "]";
 	}
 
 }
