@@ -1,82 +1,125 @@
 package com.Address;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Added AddressbookArray class to add an arraylist code in it. Here i modified
+ * the access of the Contactlist to protected. Because protected objects can be
+ * accessed in inner classes.
+ */
+
 public class AddressBook {
+	Scanner sc = new Scanner(System.in);
+	protected ArrayList<Contact> contactList = new ArrayList<Contact>();
+	String addressBookName;
 
-	static Scanner sc = new Scanner(System.in);
-	static List<Contact> list = new ArrayList<>();
+	public static void main(String args[]) {
+		/**
+		 * Here i have created Adbook of class AddressBookArray to store multiple
+		 * addressbooks. According to the options this app will work.
+		 */
+		ArrayList<AddressBook> adbook = new ArrayList<AddressBook>();
+		Scanner scan = new Scanner(System.in);
+		String choice = "y";
+		int r = 0;
+		System.out.println("Welcome to Address Book Program!");
+		while (r != 3) {
+			System.out.println("1.CREATE AN ADDRESS BOOK");
+			System.out.println("2.ACCESS AN ADDRESS BOOK");
+			System.out.println("3.EXIT THE APPLICATION");
+			r = scan.nextInt();
+			switch (r) {
+			case 1:
+				System.out.println("Enter the name of address book to be created");
+				String name = scan.next();
+				AddressBook book = new AddressBook();
+				book.addressBookName = name;
+				adbook.add(book);
+				break;
+			case 2:
+				int key = 0;
+				System.out.println("Enter the address book name to be accessed");
+				String accessBook = scan.next();
+				for (int j = 0; j < adbook.size(); j++) {
+					if (adbook.get(j).addressBookName.equalsIgnoreCase(accessBook)) {
+						int switchChoice = 0;
+						while (switchChoice != 5) {
+							System.out.println("Enter 1: add 2: edit 3: delete 4: view 5: exit");
+							System.out.println("Enter choice : ");
+							switchChoice = scan.nextInt();
+							scan.nextLine();
+							choice = "y";
+							switch (switchChoice) {
+							case 1:
+								while (choice.equals("y")) {
+									System.out.println("Firstname : ");
+									String firstname = scan.nextLine();
+									System.out.println("Lastname : ");
+									String lastname = scan.nextLine();
+									System.out.println("Address : ");
+									String address = scan.nextLine();
+									System.out.println("City : ");
+									String city = scan.nextLine();
+									System.out.println("State : ");
+									String state = scan.nextLine();
+									System.out.println("Zip : ");
+									int zip = scan.nextInt();
+									System.out.println("PhoneNumber : ");
+									long phonenumber = scan.nextLong();
+									System.out.println("Email : ");
+									scan.nextLine();
+									String email = scan.nextLine();
+									System.out.println("Do you want add more contact : ");
+									choice = scan.nextLine();
 
-	// Created method for adding contact
-	public static void addContact() {
-		System.out.println("Enter your firstName : ");
-		String firstName = sc.nextLine();
-		System.out.println("Enter your lastName : ");
-		String lastName = sc.nextLine();
-		System.out.println("Enter your address : ");
-		String address = sc.nextLine();
-		System.out.println("Enter your city : ");
-		String city = sc.nextLine();
-		System.out.println("Enter your state : ");
-		String state = sc.nextLine();
-		System.out.println("Enter your zipCode : ");
-		String zip = sc.nextLine();
-		System.out.println("Enter your phoneNo : ");
-		long phoneNo = sc.nextLong();
-		System.out.println("Enter your emailId : ");
-		String email = sc.nextLine();
-		Contact obj = new Contact(firstName, lastName, address, city, state, zip, phoneNo, email);
-		list.add(obj);
-	}
+									Contact contact = new Contact(firstname, lastname, address, city, state, zip,
+											phonenumber, email);
+									adbook.get(j).contactList.add(contact);
+								}
+								break;
 
-	// Created method for editing contact details
-	public static void editContact() {
-		// Scanner sc = new Scanner(System.in);
-		System.out.println("Enter first name: ");
-		String firstName = sc.nextLine();
-		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i).getFirstName().equalsIgnoreCase(firstName)) {
-				list.remove(i);
-				addContact();
-			} else {
-				System.out.println("No data found in Address Book");
+							case 2:
+								System.out.println("Enter name of contact to edit : ");
+								String nameToEdit = scan.nextLine();
+								int i = 0;
+								for (i = 0; i < adbook.get(j).contactList.size(); i++) {
+									if (adbook.get(j).contactList.get(i).firstname.equalsIgnoreCase(nameToEdit)) {
+										adbook.get(j).contactList.get(i).editContact();
+									}
+								}
+								break;
+
+							case 3:
+								System.out.println("Enter name of contact to delete : ");
+								String deleteCon = scan.nextLine();
+								for (i = 0; i < adbook.get(j).contactList.size(); i++) {
+									if (adbook.get(j).contactList.get(i).firstname.equalsIgnoreCase(deleteCon)) {
+										adbook.get(j).contactList.remove(i);
+									}
+								}
+								break;
+
+							case 4:
+								System.out.println("Enter name of contact to view : ");
+								String nameToView = scan.nextLine();
+								for (i = 0; i < adbook.get(j).contactList.size(); i++) {
+									if (adbook.get(j).contactList.get(i).firstname.equalsIgnoreCase(nameToView)) {
+										adbook.get(j).contactList.get(i).printContactDetails();
+									}
+								}
+								break;
+							default:
+								break;
+							}
+						}
+
+					} else {
+						System.out.println("Address Book not found.");
+						System.out.println("Kindly create one Address Book to work.");
+					}
+				}
 			}
 		}
-	}
-
-	// Creating deleteContact() for deleting contact details using first name
-	public static void deleteContact() {
-		System.out.println("Enter first name : ");
-		String firstName = sc.nextLine();
-		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i).getFirstName().equalsIgnoreCase(firstName)) {
-				list.remove(i);
-			} else {
-				System.out.println("No data found");
-			}
-		}
-	}
-
-	// Adding Multiple persons i.e contacts in address book
-	public static void addPersons() {
-		System.out.println("Enter number of persons added to be in address book : ");
-		int noOfPersons = sc.nextInt();
-		int count = 1;
-		while (count <= noOfPersons) {
-			addContact();
-			count++;
-		}
-	}
-
-	public static void main(String[] args) {
-
-		AddressBook addressBook = new AddressBook();
-		// Displaying the welcome message
-		System.out.println("WELCOME TO ADDRESS BOOK PROBLEM");
-		// adding multiple persons
-		addPersons();
-		System.out.println(list); // printing list
 	}
 }
