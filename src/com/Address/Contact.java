@@ -1,10 +1,5 @@
 package com.Address;
 
-/**
- * Here i have imported Scanner to take user input. imported ArrayList to store
- * the values in an ArrayList.
- */
-
 public class Contact {
 	public String firstname, lastname;
 	public String address, city, state;
@@ -108,4 +103,5 @@ public class Contact {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 }
