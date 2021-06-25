@@ -1,44 +1,72 @@
 package com.Address;
 
-public class Contact {
-////Initialize all the parameters
-	private String firstName;
-	private String lastName;
-	private String city;
-	private String state;
-	private String pin;
-	private String mobileNo;
-	private String email;
-	// call by Constructor
+/**
+ * Here i have imported Scanner to take user input. imported ArrayList to store
+ * the values in an ArrayList.
+ */
 
-	public Contact(String firstName, String lastName, String city, String state, String pin, String mobileNo,
-			String email) {
-		// Using Super key
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
+public class Contact {
+	public String firstname, lastname;
+	public String address, city, state;
+	public int zip;
+	public long phoneNumber;
+	public String email;
+
+	/**
+	 * This is a parameterized constructor having the given parameters.
+	 * 
+	 * @param firstname
+	 * @param lastname
+	 * @param address
+	 * @param city
+	 * @param state
+	 * @param zip
+	 * @param phonenumber
+	 * @param email
+	 */
+	public Contact(String firstname, String lastname, String address, String city, String state, int zip,
+			long phonenumber, String email) {
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.address = address;
 		this.city = city;
 		this.state = state;
-		this.pin = pin;
-		this.mobileNo = mobileNo;
+		this.zip = zip;
+		this.phoneNumber = phonenumber;
 		this.email = email;
 	}
-	// Using Getter and Setter Method
 
+	public Contact() {
+
+	}
+
+	/**
+	 * these get methods are used to get the values according to the user input.
+	 * 
+	 * @return
+	 */
 	public String getFirstName() {
-		return firstName;
+		return firstname;
 	}
 
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		this.firstname = firstName;
 	}
 
 	public String getLastName() {
-		return lastName;
+		return lastname;
 	}
 
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		this.lastname = lastName;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getCity() {
@@ -57,20 +85,20 @@ public class Contact {
 		this.state = state;
 	}
 
-	public String getPin() {
-		return pin;
+	public int getZip() {
+		return zip;
 	}
 
-	public void setPin(String pin) {
-		this.pin = pin;
+	public void setZip(int zip) {
+		this.zip = zip;
 	}
 
-	public String getMobileNo() {
-		return mobileNo;
+	public long getPhoneNo() {
+		return phoneNumber;
 	}
 
-	public void setMobileNo(String mobileNo) {
-		this.mobileNo = mobileNo;
+	public void setPhoneNo(long phno) {
+		this.phoneNumber = phno;
 	}
 
 	public String getEmail() {
@@ -80,11 +108,4 @@ public class Contact {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	@Override
-	public String toString() {
-		return "Contact [firstName=" + firstName + ", lastName=" + lastName + ", city=" + city + ", state=" + state
-				+ ", pin=" + pin + ", mobileNo=" + mobileNo + ", email=" + email + "]";
-	}
-
 }

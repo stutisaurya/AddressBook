@@ -1,61 +1,120 @@
 package com.Address;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class AddressBook {
-	static Scanner sc = new Scanner(System.in);
-	static List<Contact> list = new LinkedList<Contact>();
+/**
+ * Added AddressbookArray class to add an arraylist code in it.
+ */
 
-	// Created method for adding contact
-	public static void addContact() {
-		System.out.println("Enter your firstName : ");
-		String firstName = sc.nextLine();
-		System.out.println("Enter your lastName : ");
-		String lastName = sc.nextLine();
-		System.out.println("Enter your address : ");
-		String address = sc.nextLine();
-		System.out.println("Enter your city : ");
-		String city = sc.nextLine();
-		System.out.println("Enter your state : ");
-		String state = sc.nextLine();
-		System.out.println("Enter your pin : ");
-		String pin = sc.nextLine();
-		System.out.println("Enter your MobileNo : ");
-		String MobileNo = sc.nextLine();
-		System.out.println("Enter your email : ");
-		String email = sc.nextLine();
-		Contact obj = new Contact(firstName, lastName, city, state, pin, MobileNo, email);
-		list.add(obj);
+public class AddressBook extends Contact {
+	Scanner sc = new Scanner(System.in);
+	private ArrayList<Contact> contactList = new ArrayList<Contact>();
+
+	/**
+	 * This is a parameterized constructor having the given parameters.
+	 *
+	 * @param firstname
+	 * @param lastname
+	 * @param address
+	 * @param city
+	 * @param state
+	 * @param zip
+	 * @param phonenumber
+	 * @param email
+	 */
+	public AddressBook(String firstname, String lastname, String address, String city, String state, int zip,
+			long phonenumber, String email) {
+		super(firstname, lastname, address, city, state, zip, phonenumber, email);
 	}
 
-	public static void editContact() {
-		// Scanner sc = new Scanner(System.in);
-		System.out.println("Enter first name for confirmation : ");
-		String firstName = sc.nextLine();
-		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i).getFirstName().equalsIgnoreCase(firstName)) {
-				list.remove(i);
-				addContact();
-				System.out.println("Successfully Edit data");
-			} else {
-				System.out.println("No data found in Address Book");
+	public AddressBook() {
+		super();
+	}
+
+	public void insertContact(AddressBook contactDetailObject) {
+
+		contactList.add(contactDetailObject);
+	}
+
+	/**
+	 * This Editcontact method will take the firstname as a parameter and according
+	 * to that it will edit the data.
+	 * 
+	 * @param nameToEdit
+	 */
+	public void editContact(String nameToEdit) {
+		for (Contact editContact : contactList) {
+			if (editContact.getFirstName().equals(nameToEdit)) {
+
+				System.out.println("Edit Firstname : ");
+				String firstname = sc.nextLine();
+				editContact.setFirstName(firstname);
+
+				System.out.println("Edit Lastname : ");
+				String lastname = sc.nextLine();
+				editContact.setLastName(lastname);
+
+				System.out.println("Edit Address : ");
+				String address = sc.nextLine();
+				editContact.setAddress(address);
+
+				System.out.println("Edit City : ");
+				String city = sc.nextLine();
+				editContact.setCity(city);
+
+				System.out.println("Edit State : ");
+				String state = sc.nextLine();
+				editContact.setState(state);
+
+				System.out.println("Edit Zip : ");
+				int zip = sc.nextInt();
+				editContact.setZip(zip);
+
+				System.out.println("Edit PhoneNumber : ");
+				long phonenumber = sc.nextLong();
+				sc.nextLine();
+				editContact.setPhoneNo(phonenumber);
+
+				System.out.println("Edit Email : ");
+				String email = sc.nextLine();
+				editContact.setEmail(email);
 			}
 		}
 	}
 
-	public static void main(String[] args) {
+	/**
+	 * Here i have added delete method which will delete the data comparing to the
+	 * firstname.
+	 * 
+	 * @param nameToDelete
+	 */
+	public void delete(String nameToDelete) {
+		int i = 0;
+		for (i = 0; i < contactList.size(); i++) {
+			if (contactList.get(i).firstname.equals(nameToDelete)) {
+				contactList.remove(i);
+				System.out.println("Contact is Deleted");
+			} else {
+				System.out.println("Contact not found!");
+			}
+		}
+	}
 
-		AddressBook addressBook = new AddressBook();
-		// Displaying the welcome message
-		System.out.println("WELCOME TO ADDRESS BOOK PROBLEM");
-		// Adding new contact
-		System.out.println("Enter details of new contact");
-		addContact();
-		// Editing Contact
-		editContact();
-
-		System.out.println(list); // printing list
+	/**
+	 * This printContactDetails will print all the information after data got
+	 * edited.
+	 */
+	public void printContactDetails() {
+		for (Contact getInfo : contactList) {
+			System.out.println("Firstname : " + getInfo.getFirstName());
+			System.out.println("Lastname : " + getInfo.getLastName());
+			System.out.println("Address : " + getInfo.getAddress());
+			System.out.println("City : " + getInfo.getCity());
+			System.out.println("State : " + getInfo.getState());
+			System.out.println("Zip : " + getInfo.getZip());
+			System.out.println("PhoneNumber : " + getInfo.getPhoneNo());
+			System.out.println("Email : " + getInfo.getEmail());
+		}
 	}
 }
