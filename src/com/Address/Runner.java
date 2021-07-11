@@ -13,7 +13,8 @@ public class Runner {
 		while (condition == true) {
 			Scanner scanner = new Scanner(System.in);
 			System.out.println("1.add" + "\n" + "2.Display" + "\n" + "3.edit" + "\n" + "4.delete" + "\n"
-					+ "5.addMultiplePerson" + "\n" + "6.duplicateCheck");
+					+ "5.addMultiplePerson" + "\n" + "6.duplicateCheck" + "\n" + "7.searchPersonByName" + "\n"
+					+ "8.searchPersonByState");
 			Scanner option = new Scanner(System.in);
 
 			switch (option.nextInt()) {
@@ -39,6 +40,16 @@ public class Runner {
 						"Enter the Name of the person you wants to check, weather that person is present or not");
 				String name1 = scanner.nextLine();
 				adressBookImplementation.duplicateCheck(name1);
+				break;
+			case 7:
+				System.out.println("Enter a Name");
+				String firstName1 = scanner.nextLine();
+				adressBookImplementation.searchPersonByName(firstName1);
+				break;
+			case 8:
+				System.out.println("Enter a name");
+				String state = scanner.nextLine();
+				adressBookImplementation.searchPersonByState(state);
 				break;
 			default:
 				System.out.println("Invalid Input");

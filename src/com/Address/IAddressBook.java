@@ -19,4 +19,16 @@ public interface IAddressBook {
 
 	void duplicateCheck(String firstName);
 
+	/**
+	 * Uc7: Ability to ensure there is no Duplicate Entry of the same Person in a
+	 * particular Address Book.
+	 */
+	void searchPersonByName(String firstname);
+
+	/**
+	 * Uc8: Ability to search person in a city or state across the multiple
+	 * AddressBook
+	 */
+	void searchPersonByState(String firstname);
+
 }
