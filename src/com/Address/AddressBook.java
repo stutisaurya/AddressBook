@@ -11,11 +11,6 @@ public class AddressBook implements IAddressBook {
 	public ArrayList<Person> personList = new ArrayList<Person>();
 	Map<String, Person> hashmap = new HashMap<>();
 
-	/**
-	 * add method is public void type add method used to add contact details to
-	 * address book
-	 */
-
 	public void add() {
 		System.out.println("Enter your first name");
 		String firstName = scanner.nextLine();
@@ -36,11 +31,6 @@ public class AddressBook implements IAddressBook {
 		personList.add(person1);
 		System.out.println("Contact added successfully");
 	}
-
-	/**
-	 * edit method is public void type edit method used to edit contact present in
-	 * address book. Contact will be edited , based on first name
-	 */
 
 	public void edit() {
 		String enteredName;
@@ -95,11 +85,6 @@ public class AddressBook implements IAddressBook {
 
 	}
 
-	/**
-	 * Creating delete method , so that user can delete the contact details which is
-	 * not required for user by entering first name user can delete the contact
-	 */
-
 	public void delete(String name) {
 		for (int i = 0; i < personList.size(); i++) {
 			if (personList.get(i).getFirstName().equals(name)) {
@@ -109,12 +94,6 @@ public class AddressBook implements IAddressBook {
 		}
 	}
 
-	/**
-	 * Creating AddMultiplePerson method , so that user can add the contact details
-	 * by entering person name user can delete the contact. If contact person
-	 * already present it display duplicate statement
-	 */
-
 	public void addMultiplePerson() {
 		System.out.println("Enter a person Name:");
 		String firstName = scanner.nextLine();
@@ -122,11 +101,6 @@ public class AddressBook implements IAddressBook {
 			Person person = personList.get(i);
 		}
 	}
-
-	/**
-	 * display is a public void type, display method used to display the entered
-	 * details. Creating display method to display the contact details
-	 */
 
 	public void display() {
 		for (int i = 0; i < personList.size(); i++) {
@@ -138,11 +112,6 @@ public class AddressBook implements IAddressBook {
 		}
 	}
 
-	/**
-	 * duplicateCheck is an public void type ensuring there is no Duplicate Entry of
-	 * the same Person in a Address Book
-	 *
-	 */
 	public void duplicateCheck(String firstName) {
 		for (int k = 0; k < personList.size(); k++) {
 			String contactName = personList.get(k).firstName;

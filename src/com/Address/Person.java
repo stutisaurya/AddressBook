@@ -2,12 +2,6 @@ package com.Address;
 
 import java.util.List;
 
-/**
- * Person is a class of public type In this Person class setting and getting
- * required values And initializing all required details has string
- *
- */
-
 public class Person {
 
 	public String firstName;
@@ -17,18 +11,6 @@ public class Person {
 	public String state;
 	public String mobileNo;
 	public String zip;
-
-	/**
-	 * setting and getting values for Person
-	 * 
-	 * @param firstName
-	 * @param lastName
-	 * @param address
-	 * @param city
-	 * @param state
-	 * @param zip2
-	 * @param phoneNumber
-	 */
 
 	public Person(String firstName, String lastName, String address, String city, String state, String mobileNo2,
 			String zip2) {
@@ -42,7 +24,6 @@ public class Person {
 	}
 
 	public Person(String name, List<Person> personList) {
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getFirstName() {

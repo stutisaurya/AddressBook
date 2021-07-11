@@ -2,15 +2,6 @@ package com.Address;
 
 import java.util.Scanner;
 
-/**
- * Runner class is a public type Runner class contains main method if condition
- * is true By using switchCase asking user to what task user needs to perform
- * option will be given to user to select an number 1= adding contact details
- * 2=displaying contact details 3=editing contact details 4=deleting details
- * 5=adding multiple persons 6=ensuring there is no Duplicate Entry of the same
- * Person in a Address Book
- */
-
 public class Runner {
 
 	public static void main(String[] args) {
