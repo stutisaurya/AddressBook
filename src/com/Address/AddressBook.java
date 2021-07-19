@@ -1,16 +1,22 @@
 package com.Address;
 
-import java.awt.List;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class AddressBook implements IAddressBook {
 
-	private static AddressBook addressBookImplementation;
-	Scanner scanner = new Scanner(System.in);
-	ArrayList<Person> personList = new ArrayList<Person>();
+	// Storing person info list inside address book map and then storing it to
+	// hashmap.
+	private static Map<String, Set<Person>> addressBookMap = new HashMap();
+	private static Set<Person> personList = new HashSet<>();
+
+	private String addressBookName;
+	private static final Scanner scanner = new Scanner(System.in);
 
 	/**
 	 * Uc2: Ability to add a new contact to Address Book
@@ -18,34 +24,32 @@ public class AddressBook implements IAddressBook {
 
 	@Override
 	public void add() {
-		System.out.println("Enter your first name");
-		String firstName = scanner.nextLine();
-		System.out.println("Enter your last name");
-		String lastName = scanner.nextLine();
-		System.out.println("Enter your address");
-		String address = scanner.nextLine();
-		System.out.println("Enter your city");
-		String city = scanner.nextLine();
-		System.out.println("Enter your state");
-		String state = scanner.nextLine();
-		System.out.println("Enter your phone");
-		String mobileNo = scanner.nextLine();
-		System.out.println("Enter your zip code");
-		String zip = scanner.nextLine();
+		Set<Person> personList1 = new HashSet<>();
+		System.out.println("Enter the name for your AddressBook : ");
+		addressBookName = scanner.next();
 
-		Person person1 = new Person(firstName, lastName, address, city, state, mobileNo, zip);
-		personList.add(person1);
-		System.out.println("Contact added successfully");
+		// checking if addressbookmap contain the userinput addressbook.
+		if (addressBookMap.containsKey(addressBookName)) {
+			System.out.println(addressBookName + " is already there please choose another name. ");
+			add();
+		} else {
+
+			UserInputData userDetails = new UserInputData();
+			personList1 = userDetails.addUserInfo();
+
+			// uc7 : checking for duplicate values if exist or not.
+			if (!(personList1.equals(personList))) {
+				addressBookMap.put(addressBookName, personList1);
+				System.out.println("person added successfully");
+
+			}
+		}
 	}
 
 	public void display() {
-		for (int i = 0; i < personList.size(); i++) {
-			Person person = personList.get(i);
-			System.out.println("FirstName:" + person.getFirstName() + "\n" + "LastName:" + person.getLastName() + "\n"
-					+ "Adress:" + person.getAddress() + "\n" + "City:" + person.getCity() + "\n" + "State:"
-					+ person.getCity() + "Phone-Number:" + person.getMobileNo() + "\n" + "Pin-code:"
-					+ person.getPincode());
-		}
+		addressBookMap.forEach((String key, Set<Person> value) -> {
+			System.out.println("AddressBook Name : " + key + "\t\t" + "Person Details : " + value);
+		});
 	}
 
 	/**
@@ -53,32 +57,24 @@ public class AddressBook implements IAddressBook {
 	 */
 
 	@Override
-	public void edit(String firstName) {
-		for (int i = 0; i < personList.size(); i++) {
-			Person person = personList.get(i);
+	public void edit() {
+		System.out.println("Enter the first name to edit contact.");
+		String contactName = scanner.next();
 
-			System.out.println("Hi " + person.getFirstName() + " please enter your  new Address");
-			String address = scanner.nextLine();
-			person.setAddress(address);
+		addressBookMap.entrySet().stream().map(entry -> entry.getValue().iterator()).forEachOrdered(itr -> {
+			while (itr.hasNext()) {
+				if (itr.next().getFirstName().equals(contactName)) {
+					UserInputData userDetails = new UserInputData();
+					personList = userDetails.addUserInfo();
+					System.out.println("Contact edited with given first name : " + contactName);
+					addressBookMap.put(addressBookName, (Set<Person>) personList);
 
-			System.out.println("Hi " + person.getFirstName() + " please enter your  new city");
-			String city = scanner.nextLine();
-			person.setCity(city);
-
-			System.out.println("Hi " + person.getFirstName() + " please enter your  new state");
-			String state = scanner.nextLine();
-			person.setState(state);
-
-			System.out.println("Hi " + person.getFirstName() + " please enter your  new Zip Code");
-			String zip = scanner.nextLine();
-			person.setPincode(zip);
-
-			System.out.println("Hi " + person.getFirstName() + " please enter your  new Phone No");
-			String PhoneNo = scanner.nextLine();
-			person.setMobileNo(PhoneNo);
-
-			System.out.println("Hi " + person.getFirstName() + " you have sucessfully updated");
-		}
+				} else {
+					System.out.println("Person with this name not found please try with another name.");
+					edit();
+				}
+			}
+		});
 
 	}
 
@@ -87,92 +83,46 @@ public class AddressBook implements IAddressBook {
 	 */
 
 	@Override
-	public void delete(String name) {
-		for (int i = 0; i < personList.size(); i++) {
-			if (personList.get(i).getFirstName().equals(name)) {
-				Person person = personList.get(i);
-				personList.remove(person);
+	public void delete() {
+		System.out.println("Enter the first name : ");
+		String userInput = scanner.next();
+
+		addressBookMap.entrySet().stream().map(entry -> entry.getValue().iterator()).forEachOrdered(itr -> {
+			while (itr.hasNext()) {
+				if (itr.next().getFirstName().equals(userInput)) {
+					itr.remove();
+					System.out.println("Contact deleted successfully");
+				}
+
 			}
-		}
+		});
+
 	}
 
 	/**
-	 * Uc5: Ability to add multiple person to Address Book
+	 * UC 11:Here persons list will be sorted in a alphabetical order.
+	 * 
 	 */
+	private void sortByName() {
+		addressBookMap.keySet().forEach((String name) -> {
+			addressBookMap.get(name).stream().sorted(Comparator.comparing(Person::getFirstName))
+					.collect(Collectors.toList()).forEach(person -> System.out.println(person.toString()));
+		});
 
-	@Override
-	public void addMultiplePerson() {
-		System.out.println("Enter a person Name:");
-		String firstName = scanner.nextLine();
-		for (int i = 0; i < personList.size(); i++) {
-			Person person = personList.get(i);
-
-			/**
-			 * Uc6: Ability to add multiple adress book to the system each adress book has
-			 * unique name
-			 */
-
-			if (personList.get(i).getFirstName().equals(firstName)) {
-				System.out.println("Duplicate");
-			}
-		}
 	}
 
 	/**
-	 * Uc7: Ability to ensure there is no Duplicate Entry of the same Person in a
-	 * particular Address Book.
+	 * UC 12:Here persons list will be sorted and displayed with city name of an
+	 * alphabetical order.
+	 * 
 	 */
 
-	@Override
-	public void searchPersonByName(String firstname) {
-		List listPerson = (List) personList.stream()
-				.filter(person1 -> person1.getFirstName().equalsIgnoreCase(firstname)).collect(Collectors.toList());
-		personList.stream().forEach(System.out::println);
-	}
+	private void sortByCity() {
 
-	/**
-	 * Uc8: Ability to search person in a city or state across the multiple
-	 * AddressBook
-	 */
-
-	@Override
-	public void searchPersonByState(String firstname) {
-		List listPerson = (List) personList.stream()
-				.filter(person1 -> person1.getFirstName().equalsIgnoreCase(firstname)).collect(Collectors.toList());
-		personList.stream().forEach(System.out::println);
-	}
-
-	/**
-	 * Uc9: view person by city or state
-	 */
-	@Override
-	public void viewByCity(String city) {
-		Collection<Person> list;
-		List people = (List) personList.stream().filter(person1 -> person1.getFirstName().equalsIgnoreCase(city))
-				.collect(Collectors.toList());
-
-		for (Person person : personList) {
-			System.out.println(person);
-		}
-	}
-
-	/**
-	 * Uc10: count by city or state
-	 */
-
-	@Override
-	public void searchPersonInCity(String firstName) {
-		Collection<Person> list;
-		List people = (List) personList.stream().filter(person1 -> person1.getFirstName().equalsIgnoreCase(firstName))
-				.collect(Collectors.toList());
-
-		for (Person person : personList) {
-			System.out.println(person.getFirstName() + "---->" + person.getCity());
-		}
-	}
-
-	@Override
-	public void duplicateCheck(String firstName) {
+		addressBookMap.keySet().forEach((String key) -> {
+			addressBookMap.get(key).stream().sorted(Comparator.comparing(Person::getCity)).collect(Collectors.toList())
+					.forEach(person -> System.out.println(person.toString()));
+		});
 
 	}
 }
