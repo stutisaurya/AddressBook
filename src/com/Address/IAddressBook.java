@@ -1,17 +1,12 @@
 package com.Address;
 
-/**
- * interface class calling all functions
- *
- */
-
 public interface IAddressBook {
 
 	void add();
 
 	void display();
 
-	void edit();
+	void edit(String firstName);
 
 	void delete(String firstName);
 
@@ -30,5 +25,15 @@ public interface IAddressBook {
 	 * AddressBook
 	 */
 	void searchPersonByState(String firstname);
+
+	/**
+	 * Uc9: view person by city or state
+	 */
+	void viewByCity(String city);
+
+	/**
+	 * Uc10: count by city or state
+	 */
+	void searchPersonInCity(String firstName);
 
 }

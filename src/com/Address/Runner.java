@@ -7,14 +7,13 @@ public class Runner {
 	public static void main(String[] args) {
 		System.out.println("Welcome to the Address Book Problem");
 		AddressBook adressBookImplementation = new AddressBook();
-		int k = 0;
 		boolean condition = true;
 
 		while (condition == true) {
 			Scanner scanner = new Scanner(System.in);
-			System.out.println("1.add" + "\n" + "2.Display" + "\n" + "3.edit" + "\n" + "4.delete" + "\n"
-					+ "5.addMultiplePerson" + "\n" + "6.duplicateCheck" + "\n" + "7.searchPersonByName" + "\n"
-					+ "8.searchPersonByState");
+			System.out.println("1.add" + "\n" + "2.Display" + "\n" + "3.Edit" + "\n" + "4.Delete" + "\n"
+					+ "5.Add MultiplePerson" + "\n" + "6.SearchByName" + "\n" + "7.SearchByState" + "\n"
+					+ "8.viewByCity" + "\n" + "SearchPersonInCity");
 			Scanner option = new Scanner(System.in);
 
 			switch (option.nextInt()) {
@@ -25,7 +24,9 @@ public class Runner {
 				adressBookImplementation.display();
 				break;
 			case 3:
-				adressBookImplementation.edit();
+				System.out.println("Enter the firstName:");
+				String firstName = scanner.nextLine();
+				adressBookImplementation.edit(firstName);
 				break;
 			case 4:
 				System.out.println("Enter the Name of the person do you wants to delete");
@@ -36,23 +37,28 @@ public class Runner {
 				adressBookImplementation.addMultiplePerson();
 				break;
 			case 6:
-				System.out.println(
-						"Enter the Name of the person you wants to check, weather that person is present or not");
-				String name1 = scanner.nextLine();
-				adressBookImplementation.duplicateCheck(name1);
-				break;
-			case 7:
 				System.out.println("Enter a Name");
 				String firstName1 = scanner.nextLine();
 				adressBookImplementation.searchPersonByName(firstName1);
 				break;
-			case 8:
+			case 7:
 				System.out.println("Enter a name");
 				String state = scanner.nextLine();
 				adressBookImplementation.searchPersonByState(state);
 				break;
+			case 8:
+				System.out.println("Enter the City");
+				String city = scanner.nextLine();
+				adressBookImplementation.viewByCity(city);
+				break;
+
+			case 9:
+				System.out.println("Enter name");
+				String name1 = scanner.nextLine();
+				adressBookImplementation.searchPersonInCity(name1);
+				break;
 			default:
-				System.out.println("Invalid Input");
+				System.out.println();
 			}
 		}
 	}
